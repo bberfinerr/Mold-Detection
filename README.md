@@ -1,37 +1,19 @@
-# Mold Detection (final report code)
+# Mold Detection Using Deep Learning
 
-These three scripts reproduce the code supplied from the final project report. OCR/copy errors in Python syntax and indentation were repaired. The two Mac-specific absolute paths were changed to paths relative to this project folder. Training logic, CNN architecture, threshold, and Streamlit screen were not redesigned. `numpy` is imported by the original `test.py` even though that script does not use it.
+## About the Project
 
-## Expected folders
+This graduation project explores automated mold detection in images. Its goal is to distinguish **clean samples** from **samples with mold** and provide a simple interface for reviewing predictions. The application is a prototype for image-based screening and is not a substitute for laboratory analysis.
 
-```text
-mold-detection-faithful/
-  main.py
-  test.py
-  app.py
-  requirements.txt
-  dataset/
-    train/
-      clean/  [training clean photos]
-      mold/   [training mold photos]
-    val/
-      clean/  [validation clean photos]
-      mold/   [validation mold photos]
-  test_set/
-    clean/    [independent clean test photos]
-    mold/     [independent mold test photos]
-```
+The project uses a convolutional neural network (CNN) built with PyTorch. The model processes images at 64 × 64 pixels and predicts whether mold is present. A Streamlit web panel allows users to upload images, view predictions and confidence scores, and explore charts and daily or weekly summaries.
 
-The old `data_set/clean` and `data_set/mold` photos must be split manually between `dataset/train` and `dataset/val`. A simple starting division is about 80% for train and 20% for val **within each class**. Copy first and keep the old source intact. Do not place the same image in multiple splits. The old `test_set` has photos directly inside: place each one into `test_set/clean` or `test_set/mold` using its true label, not a model prediction. Do not guess labels; ask the original project team if uncertain. Both class folders should contain test images for the report to work as written.
+## How It Works
 
-Run from this project directory in a VS Code PowerShell terminal:
+- **main.py** trains the model using the training images, checks its performance with validation images, and saves it as `mold_model_optimized.pt`.
+- **test.py** tests the saved model with labeled images and displays predictions, a confusion matrix, and a classification report.
+- **app.py** provides the web interface and records predictions in `prediction_log.csv`.
 
-```powershell
-py -3 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe main.py
-.\.venv\Scripts\python.exe test.py
-.\.venv\Scripts\python.exe -m streamlit run app.py
-```
+## Project Recovery
 
-`main.py` creates `mold_model_optimized.pt`. The older `mold_model.pth` is a different format and is not used. The scripts have been checked for Python syntax, but training and inference require your actual images and locally installed packages. For GitHub, the `.gitignore` excludes photos, weights, environment files, and prediction logs; check image publication rights before changing it.
+The original project folder was lost. This repository was recreated using the code preserved in the final graduation report. Errors introduced while copying the code and file paths specific to the original computer were corrected. The model architecture, training process, prediction threshold, and main interface flow were kept consistent with the report.
+
+The final version's trained model file and complete working environment were not recovered, so the model must be trained again using the appropriate images. Its performance should be assessed with a larger independent test set. Predictions may vary depending on lighting, background, image source, and how visible the mold is.
